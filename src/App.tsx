@@ -1,4 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
+import Home from './pages/Home.tsx'
+import PlayerStats from './pages/PlayerStats.tsx'
+import TeamStats from './pages/TeamStats.tsx'
+import About from './pages/About.tsx'
+import NotFound from './pages/NotFound.tsx'
 
 function App() {
   return (
