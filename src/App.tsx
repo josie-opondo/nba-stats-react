@@ -1,5 +1,3 @@
-import React from 'react'
-
 function App() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600">
