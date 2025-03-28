@@ -10,9 +10,9 @@ export default tseslint.config(
   { ignores: ['dist'] },
   {
     extends: [
-        js.configs.recommended,
-        ...tseslint.configs.recommended,
-        prettier
+      js.configs.recommended,
+      ...tseslint.configs.recommended,
+      prettier,
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -22,7 +22,7 @@ export default tseslint.config(
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-        prettier: prettierPlugin,
+      prettier: prettierPlugin,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -30,7 +30,7 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-        'prettier/prettier': 'error',
+      'prettier/prettier': 'error',
     },
-  },
+  }
 )

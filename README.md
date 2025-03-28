@@ -3,6 +3,7 @@
 An interactive NBA statistics visualization app built with **React**, **Vite**, and **Tailwind CSS**. It allows users to browse, filter, compare, and visualize player and team statistics in a sleek, responsive, and dynamic interface.
 
 ## 🚀 Features
+
 - Player and team statistics browsing
 - Filter and compare player stats
 - Interactive charts (bar, line, pie) for data visualization
@@ -15,6 +16,7 @@ An interactive NBA statistics visualization app built with **React**, **Vite**, 
 - E2E testing with **Cypress**
 
 ## 🛠️ Tech Stack
+
 - **React**
 - **Vite**
 - **Tailwind CSS**
@@ -27,54 +29,63 @@ An interactive NBA statistics visualization app built with **React**, **Vite**, 
 ## 📥 Getting Started
 
 ### Clone the repository:
+
 ```bash
-git clone https://github.com/your-username/nba-stats-react.git  
-cd nba-stats-react  
-```  
+git clone https://github.com/your-username/nba-stats-react.git
+cd nba-stats-react
+```
 
 ### Install dependencies:
+
 ```bash
-npm install  
-```  
+npm install
+```
 
 ### Start the development server:
+
 ```bash
-npm run dev  
-```  
+npm run dev
+```
 
 ### Build for production:
+
 ```bash
-npm run build  
-```  
+npm run build
+```
 
 ### Preview the production build:
+
 ```bash
-npm run preview  
-```  
+npm run preview
+```
 
 ## 📁 Project Structure
+
 ```
 src/
-├─ assets/        — Static assets  
-├─ components/    — Reusable UI components  
-├─ features/      — Feature modules (player stats, team stats)  
-├─ layouts/       — Layout components (header, footer)  
-├─ pages/         — Route-based pages  
-├─ store/         — State management (Redux or Context)  
-├─ utils/         — Utility functions  
-├─ App.jsx  
-└─ main.jsx  
-```  
+├─ assets/        — Static assets
+├─ components/    — Reusable UI components
+├─ features/      — Feature modules (player stats, team stats)
+├─ layouts/       — Layout components (header, footer)
+├─ pages/         — Route-based pages
+├─ store/         — State management (Redux or Context)
+├─ utils/         — Utility functions
+├─ App.jsx
+└─ main.jsx
+```
 
 ## ✅ Testing
+
 - Unit tests with **Vitest**
 - End-to-end tests with **Cypress**
 - **GitHub Actions** CI workflow runs tests on push
 
 ## 🚀 Deployment
+
 The app will be deployed on **Vercel** or **Netlify**.
 
 ## 🤝 Contributing
+
 Contributions are welcome!
 
 1. Fork the repository
@@ -83,4 +94,5 @@ Contributions are welcome!
 4. Open a pull request
 
 ## 📜 License
+
 This project is licensed under the **MIT License**.
