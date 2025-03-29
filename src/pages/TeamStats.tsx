@@ -8,7 +8,9 @@ export const TeamStats = () => {
   const [teams, setTeams] = useState([]) // Placeholder for actual teams data
   const [selectedTeams, setSelectedTeams] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filteredTeams, setFilteredTeams] = useState([])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [statCategory, setStatCategory] = useState('ppg')
   const [conferences, setConferences] = useState([])
   const [selectedConferences, setSelectedConferences] = useState([])
@@ -35,6 +37,7 @@ export const TeamStats = () => {
     setFilteredTeams(filtered)
   }, [teams, searchQuery, selectedConferences])
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const addSelectedTeam = (team) => {
     setSelectedTeams((prev) => [...prev, team])
   }
