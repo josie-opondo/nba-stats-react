@@ -1,54 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { SearchFilter } from '../components/SearchFilter'
 import { ChartContainer } from '../components/ChartContainer'
 import { XIcon } from 'lucide-react'
 
 export const TeamStats = () => {
-  const [teams, setTeams] = useState([]) // Placeholder for actual teams data
-  const [selectedTeams, setSelectedTeams] = useState([])
+  const [selectedTeams, setSelectedTeams] = useState([]) // Will be used later
   const [searchQuery, setSearchQuery] = useState('')
-  const [filteredTeams, setFilteredTeams] = useState([])
-  const [statCategory, setStatCategory] = useState('ppg')
-  const [conferences, setConferences] = useState([])
-  const [selectedConferences, setSelectedConferences] = useState([])
-
-  useEffect(() => {
-    // Fetch or initialize teams data here when ready
-    setTeams([]) // Placeholder until data is available
-
-    const uniqueConferences = Array.from(
-      new Set(teams.map((team) => team.conference))
-    )
-    setConferences(uniqueConferences)
-
-    const filtered = teams.filter((team) => {
-      const matchesSearch =
-        team.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        team.abbreviation.toLowerCase().includes(searchQuery.toLowerCase())
-      const matchesConference =
-        selectedConferences.length === 0 ||
-        selectedConferences.includes(team.conference)
-      return matchesSearch && matchesConference
-    })
-
-    setFilteredTeams(filtered)
-  }, [teams, searchQuery, selectedConferences])
-
-  const addSelectedTeam = (team) => {
-    setSelectedTeams((prev) => [...prev, team])
-  }
 
   const removeSelectedTeam = (teamId) => {
     setSelectedTeams((prev) => prev.filter((team) => team.id !== teamId))
-  }
-
-  const handleConferenceChange = (conference) => {
-    setSelectedConferences((prev) =>
-      prev.includes(conference)
-        ? prev.filter((c) => c !== conference)
-        : [...prev, conference]
-    )
   }
 
   return (
@@ -64,6 +25,7 @@ export const TeamStats = () => {
             Explore and compare NBA team statistics
           </p>
         </motion.div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
             <SearchFilter
@@ -71,21 +33,8 @@ export const TeamStats = () => {
               setSearchQuery={setSearchQuery}
               placeholder="Search teams..."
             />
-            <div className="mt-4">
-              <h3 className="font-medium mb-2">Filter by Conference:</h3>
-              <div className="flex flex-wrap gap-2">
-                {conferences.map((conference) => (
-                  <button
-                    key={conference}
-                    onClick={() => handleConferenceChange(conference)}
-                    className={`px-3 py-1 rounded-full text-sm ${selectedConferences.includes(conference) ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
-                  >
-                    {conference}
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
+
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -118,7 +67,7 @@ export const TeamStats = () => {
               )}
               <ChartContainer
                 data={selectedTeams}
-                statCategory={statCategory}
+                statCategory="ppg"
                 type="team"
               />
             </div>
