@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { PlusIcon, CheckIcon } from 'lucide-react'
+
 interface PlayerCardProps {
   player: {
     id: number
@@ -17,6 +18,7 @@ interface PlayerCardProps {
   isSelected: boolean
   onSelect: () => void
 }
+
 export const PlayerCard: React.FC<PlayerCardProps> = ({
   player,
   isSelected,
@@ -24,16 +26,18 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({
 }) => {
   return (
     <motion.div
-      whileHover={{
-        scale: 1.02,
-      }}
-      className={`bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow ${isSelected ? 'border-red-500' : 'border-gray-200'}`}
+      whileHover={{ scale: 1.02 }}
+      className={`bg-white border rounded-lg overflow-hidden shadow-sm transition-shadow ${
+        isSelected
+          ? 'border-red-500 shadow-md'
+          : 'border-gray-200 hover:shadow-md'
+      }`}
     >
       <div className="p-4 flex justify-between items-center">
         <div>
-          <div className="flex items-center">
+          <div className="flex items-center space-x-2">
             <h3 className="font-medium text-gray-900">{player.name}</h3>
-            <span className="ml-2 bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">
+            <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">
               #{player.jerseyNumber}
             </span>
           </div>
@@ -46,14 +50,21 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({
             <span>{player.stats.apg} APG</span>
           </div>
         </div>
-        <button
+
+        <motion.button
           onClick={onSelect}
-          className={`p-2 rounded-full ${isSelected ? 'bg-red-100 text-red-500' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
-          disabled={isSelected}
+          whileTap={{ scale: 0.9 }}
+          className={`p-2 rounded-full transition-colors ${
+            isSelected
+              ? 'bg-red-100 text-red-500 cursor-default'
+              : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+          }`}
           aria-label={isSelected ? 'Player selected' : 'Select player'}
+          aria-pressed={isSelected}
+          disabled={isSelected}
         >
           {isSelected ? <CheckIcon size={18} /> : <PlusIcon size={18} />}
-        </button>
+        </motion.button>
       </div>
     </motion.div>
   )
