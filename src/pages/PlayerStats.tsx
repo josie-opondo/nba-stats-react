@@ -1,47 +1,16 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { SearchFilter } from '../components/SearchFilter'
 import { ChartContainer } from '../components/ChartContainer'
 import { XIcon } from 'lucide-react'
-import { useEffect, useState } from 'react'
 
 export const PlayerStats = () => {
-  const [players] = useState([])
-  const [selectedPlayers, setSelectedPlayers] = useState([])
+  const [selectedPlayers, setSelectedPlayers] = useState([]) // Will be used later
   const [searchQuery, setSearchQuery] = useState('')
-  const [, setFilteredPlayers] = useState([])
-  const [statCategory] = useState('ppg')
-  const [positions, setPositions] = useState([])
-  const [selectedPositions, setSelectedPositions] = useState([])
-
-  useEffect(() => {
-    if (!players.length) return
-
-    const uniquePositions = Array.from(
-      new Set(players.map((player) => player.position))
-    )
-    setPositions(uniquePositions)
-
-    const filtered = players.filter((player) => {
-      const matchesSearch =
-        player.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        player.team.toLowerCase().includes(searchQuery.toLowerCase())
-      const matchesPosition =
-        selectedPositions.length === 0 ||
-        selectedPositions.includes(player.position)
-      return matchesSearch && matchesPosition
-    })
-    setFilteredPlayers(filtered) // ✅ Fixed dependency issue
-  }, [players, searchQuery, selectedPositions, setFilteredPlayers]) // ✅ Added to dependencies
 
   const removeSelectedPlayer = (playerId) => {
-    setSelectedPlayers(selectedPlayers.filter((p) => p.id !== playerId))
-  }
-
-  const handlePositionChange = (position) => {
-    setSelectedPositions((prev) =>
-      prev.includes(position)
-        ? prev.filter((p) => p !== position)
-        : [...prev, position]
+    setSelectedPlayers((prev) =>
+      prev.filter((player) => player.id !== playerId)
     )
   }
 
@@ -55,31 +24,19 @@ export const PlayerStats = () => {
         >
           <h1 className="text-3xl font-bold mb-2">Player Statistics</h1>
           <p className="text-gray-600 mb-8">
-            Explore and compare NBA player statistics
+            Analyze and compare NBA player statistics
           </p>
         </motion.div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
             <SearchFilter
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
-              placeholder="Search players or teams..."
+              placeholder="Search players..."
             />
-            <div className="mt-4">
-              <h3 className="font-medium mb-2">Filter by Position:</h3>
-              <div className="flex flex-wrap gap-2">
-                {positions.map((position) => (
-                  <button
-                    key={position}
-                    onClick={() => handlePositionChange(position)}
-                    className={`px-3 py-1 rounded-full text-sm ${selectedPositions.includes(position) ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
-                  >
-                    {position}
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
+
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -112,7 +69,7 @@ export const PlayerStats = () => {
               )}
               <ChartContainer
                 data={selectedPlayers}
-                statCategory={statCategory}
+                statCategory="ppg"
                 type="player"
               />
             </div>
