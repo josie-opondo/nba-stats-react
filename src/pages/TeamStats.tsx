@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { SearchFilter } from '../components/SearchFilter'
 import { ChartContainer } from '../components/ChartContainer'
@@ -8,38 +8,39 @@ export const TeamStats = () => {
   const [teams, setTeams] = useState([]) // Placeholder for actual teams data
   const [selectedTeams, setSelectedTeams] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [filteredTeams, setFilteredTeams] = useState([])
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [, setFilteredTeams] = useState([])
   const [statCategory, setStatCategory] = useState('ppg')
   const [conferences, setConferences] = useState([])
   const [selectedConferences, setSelectedConferences] = useState([])
 
   useEffect(() => {
-    // Fetch or initialize teams data here when ready
-    setTeams([]) // Placeholder until data is available
+    // Fetch or initialize teams data when ready
+    setTeams([]) // Replace with actual API call
 
-    const uniqueConferences = Array.from(
-      new Set(teams.map((team) => team.conference))
-    )
-    setConferences(uniqueConferences)
+    if (teams.length > 0) {
+      const uniqueConferences = Array.from(
+        new Set(teams.map((team) => team.conference))
+      )
+      setConferences(uniqueConferences)
 
-    const filtered = teams.filter((team) => {
-      const matchesSearch =
-        team.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        team.abbreviation.toLowerCase().includes(searchQuery.toLowerCase())
-      const matchesConference =
-        selectedConferences.length === 0 ||
-        selectedConferences.includes(team.conference)
-      return matchesSearch && matchesConference
-    })
+      const filtered = teams.filter((team) => {
+        const matchesSearch =
+          team.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          team.abbreviation.toLowerCase().includes(searchQuery.toLowerCase())
+        const matchesConference =
+          selectedConferences.length === 0 ||
+          selectedConferences.includes(team.conference)
+        return matchesSearch && matchesConference
+      })
 
-    setFilteredTeams(filtered)
+      setFilteredTeams(filtered)
+    }
   }, [teams, searchQuery, selectedConferences])
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const addSelectedTeam = (team) => {
-    setSelectedTeams((prev) => [...prev, team])
+    if (!selectedTeams.some((t) => t.id === team.id)) {
+      setSelectedTeams([...selectedTeams, team])
+    }
   }
 
   const removeSelectedTeam = (teamId) => {
@@ -52,6 +53,10 @@ export const TeamStats = () => {
         ? prev.filter((c) => c !== conference)
         : [...prev, conference]
     )
+  }
+
+  const handleStatCategoryChange = (e) => {
+    setStatCategory(e.target.value)
   }
 
   return (
@@ -81,12 +86,29 @@ export const TeamStats = () => {
                   <button
                     key={conference}
                     onClick={() => handleConferenceChange(conference)}
-                    className={`px-3 py-1 rounded-full text-sm ${selectedConferences.includes(conference) ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                    className={`px-3 py-1 rounded-full text-sm ${
+                      selectedConferences.includes(conference)
+                        ? 'bg-purple-500 text-white'
+                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    }`}
                   >
                     {conference}
                   </button>
                 ))}
               </div>
+            </div>
+            <div className="mt-4">
+              <h3 className="font-medium mb-2">Stat Category:</h3>
+              <select
+                value={statCategory}
+                onChange={handleStatCategoryChange}
+                className="p-2 border rounded"
+              >
+                <option value="ppg">Points Per Game</option>
+                <option value="rpg">Rebounds Per Game</option>
+                <option value="apg">Assists Per Game</option>
+                <option value="spg">Steals Per Game</option>
+              </select>
             </div>
           </div>
           <motion.div

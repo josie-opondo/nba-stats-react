@@ -8,10 +8,8 @@ export const PlayerStats = () => {
   const [players] = useState([])
   const [selectedPlayers, setSelectedPlayers] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [filteredPlayers, setFilteredPlayers] = useState([])
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [statCategory, setStatCategory] = useState('ppg')
+  const [, setFilteredPlayers] = useState([])
+  const [statCategory] = useState('ppg')
   const [positions, setPositions] = useState([])
   const [selectedPositions, setSelectedPositions] = useState([])
 
@@ -34,13 +32,6 @@ export const PlayerStats = () => {
     })
     setFilteredPlayers(filtered) // ✅ Fixed dependency issue
   }, [players, searchQuery, selectedPositions, setFilteredPlayers]) // ✅ Added to dependencies
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const addSelectedPlayer = (player) => {
-    if (!selectedPlayers.some((p) => p.id === player.id)) {
-      setSelectedPlayers([...selectedPlayers, player])
-    }
-  }
 
   const removeSelectedPlayer = (playerId) => {
     setSelectedPlayers(selectedPlayers.filter((p) => p.id !== playerId))
