@@ -4,11 +4,20 @@ import { SearchFilter } from '../components/SearchFilter'
 import { ChartContainer } from '../components/ChartContainer'
 import { XIcon } from 'lucide-react'
 
-export const PlayerStats = () => {
-  const [selectedPlayers, setSelectedPlayers] = useState([]) // Will be used later
-  const [searchQuery, setSearchQuery] = useState('')
+// Define a TypeScript interface for Player that matches ChartContainer's expectations
+interface Player {
+  id: number
+  name: string
+  stats: Record<string, number> // Ensuring it has stats
+}
 
-  const removeSelectedPlayer = (playerId) => {
+export const PlayerStats = () => {
+  // State for selected players and search query
+  const [selectedPlayers, setSelectedPlayers] = useState<Player[]>([])
+  const [searchQuery, setSearchQuery] = useState<string>('')
+
+  // Function to remove a player from the selected list
+  const removeSelectedPlayer = (playerId: number) => {
     setSelectedPlayers((prev) =>
       prev.filter((player) => player.id !== playerId)
     )
@@ -17,6 +26,7 @@ export const PlayerStats = () => {
   return (
     <div className="w-full bg-gray-50 min-h-screen">
       <div className="container mx-auto px-4 py-8">
+        {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -28,7 +38,9 @@ export const PlayerStats = () => {
           </p>
         </motion.div>
 
+        {/* Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Search Filter */}
           <div className="lg:col-span-1">
             <SearchFilter
               searchQuery={searchQuery}
@@ -37,6 +49,7 @@ export const PlayerStats = () => {
             />
           </div>
 
+          {/* Selected Players & Chart Section */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -45,6 +58,7 @@ export const PlayerStats = () => {
           >
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
               <h2 className="text-xl font-bold mb-4">Selected Players</h2>
+
               {selectedPlayers.length > 0 ? (
                 <div className="flex flex-wrap gap-2 mb-4">
                   {selectedPlayers.map((player) => (
@@ -67,6 +81,8 @@ export const PlayerStats = () => {
                   Select players from the list to compare their statistics
                 </p>
               )}
+
+              {/* Chart Container */}
               <ChartContainer
                 data={selectedPlayers}
                 statCategory="ppg"
