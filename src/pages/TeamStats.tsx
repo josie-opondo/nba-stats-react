@@ -4,11 +4,19 @@ import { SearchFilter } from '../components/SearchFilter'
 import { ChartContainer } from '../components/ChartContainer'
 import { XIcon } from 'lucide-react'
 
-export const TeamStats = () => {
-  const [selectedTeams, setSelectedTeams] = useState([]) // Will be used later
-  const [searchQuery, setSearchQuery] = useState('')
+// Define a type that matches ChartContainer's expectations
+interface Team {
+  id: number
+  name: string
+  abbreviation?: string
+  stats: Record<string, number> // Ensuring stats exist
+}
 
-  const removeSelectedTeam = (teamId) => {
+export const TeamStats = () => {
+  const [selectedTeams, setSelectedTeams] = useState<Team[]>([])
+  const [searchQuery, setSearchQuery] = useState<string>('')
+
+  const removeSelectedTeam = (teamId: number) => {
     setSelectedTeams((prev) => prev.filter((team) => team.id !== teamId))
   }
 
