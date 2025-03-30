@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, ReactNode } from 'react'
+import React, { useState, createContext, ReactNode } from 'react'
 
 const mockPlayers: Player[] = [
   {
@@ -107,7 +107,7 @@ interface Team {
     bpg: number
   }
 }
-interface StatsContextType {
+export interface StatsContextType {
   players: Player[]
   teams: Team[]
   selectedPlayers: Player[]
@@ -122,7 +122,9 @@ interface StatsContextType {
   removeSelectedTeam: (teamId: number) => void
   clearSelections: () => void
 }
-const StatsContext = createContext<StatsContextType | undefined>(undefined)
+export const StatsContext = createContext<StatsContextType | undefined>(
+  undefined
+)
 export const StatsProvider: React.FC<{
   children: ReactNode
 }> = ({ children }) => {
@@ -180,12 +182,4 @@ export const StatsProvider: React.FC<{
       {children}
     </StatsContext.Provider>
   )
-}
-
-export const useStats = (): StatsContextType => {
-  const context = useContext(StatsContext)
-  if (context === undefined) {
-    throw new Error('useStats must be used within a StatsProvider')
-  }
-  return context
 }
