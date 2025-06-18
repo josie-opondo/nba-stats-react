@@ -39,7 +39,7 @@ export const Header = () => {
             <motion.img
               src="./src/assets/logo.png" // Adjust the path if needed
               alt="NBA Stats Visualizer Logo"
-              className="w-8 h-8"
+              className="w-20 h-20"
               initial={{ rotate: 0 }}
               animate={{ rotate: 360 }}
               transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}

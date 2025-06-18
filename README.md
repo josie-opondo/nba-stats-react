@@ -31,7 +31,7 @@ An interactive NBA statistics visualization app built with **React**, **Vite**, 
 ### Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/nba-stats-react.git
+git clone https://github.com/josie-opondo/nba-stats-react.git
 cd nba-stats-react
 ```
 
